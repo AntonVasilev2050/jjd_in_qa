@@ -16,5 +16,5 @@ public interface MainService {
 
     void saveMessage(Message message);
 
-    List<Message> getLastMessages(int number);
+    List<Message> getLastMessages();
 }

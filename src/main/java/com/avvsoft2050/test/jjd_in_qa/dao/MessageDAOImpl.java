@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 @Repository
@@ -21,7 +22,17 @@ public class MessageDAOImpl implements MessageDAO {
     }
 
     @Override
-    public List<Message> getLastMessages(int number) {
-        return null;
+    public List<Message> getLastMessages() {
+        Session session = entityManager.unwrap(Session.class);
+        int maxId = (int) session.createQuery("select max (id) from Message ").getSingleResult();
+        Query query = session.createQuery(
+                "from Message m where m.id between :maxId-9 and :maxId");
+        query.setParameter("maxId", maxId);
+        System.out.println(maxId);
+
+
+        List<Message> messageList = query.getResultList();
+
+        return messageList;
     }
 }

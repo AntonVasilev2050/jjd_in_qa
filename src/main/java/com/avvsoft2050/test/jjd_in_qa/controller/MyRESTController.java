@@ -30,7 +30,7 @@ public class MyRESTController {
     public User getUser(@PathVariable int id) {
         User user = mainService.getUserById(id);
 //        if(user==null){
-//            throw new NoSuchUserExeption("There is no user with ID = " + id + " in database");
+//            throw new NoSuchUserException("There is no user with ID = " + id + " in database");
 //        }
         return user;
     }
@@ -62,7 +62,8 @@ public class MyRESTController {
         Message message = null;
         if (messageFromUser.getMessage().equals("history 10")) {
             if(tokenIsValid(messageFromUser, request)){
-                messageList = mainService.getLastMessages(10);
+                messageList = mainService.getLastMessages();
+                return messageList;
             }
         } else {
             if (tokenIsValid(messageFromUser, request)) {

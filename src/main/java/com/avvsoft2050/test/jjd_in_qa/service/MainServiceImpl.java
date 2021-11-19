@@ -52,7 +52,7 @@ public class MainServiceImpl implements MainService {
 
     @Override
     @Transactional
-    public List<Message> getLastMessages(int number) {
-        return null;
+    public List<Message> getLastMessages() {
+        return messageDAO.getLastMessages();
     }
 }
