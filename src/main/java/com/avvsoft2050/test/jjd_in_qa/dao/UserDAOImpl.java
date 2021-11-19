@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -15,10 +16,29 @@ public class UserDAOImpl implements UserDAO {
     private EntityManager entityManager;
 
     @Override
+    public User getUserById(int id) {
+        Session session = entityManager.unwrap(Session.class);
+        User user = session.get(User.class, id);
+
+        return user;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        Session session = entityManager.unwrap(Session.class);
+        Query query = session.createQuery("from User");
+        List<User> userList = query.getResultList();
+        return session.createQuery("from User ", User.class).getResultList();
+    }
+
+    @Override
     public User getUser(String username, String password) {
         Session session = entityManager.unwrap(Session.class);
-        Query<User> query = session.createQuery("from User where User.userName = :username and User.password = :password");
-        User user = query.getSingleResult();
+        Query query = session.createQuery("from User u where (u.userName = :username) and (u.password = :password)");
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+
+        User user = (User) query.getSingleResult();
 
         return user;
     }

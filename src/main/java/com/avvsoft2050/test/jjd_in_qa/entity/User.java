@@ -10,26 +10,21 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "username")
     private String userName;
 
-    @Column(name = "password")
+    @Column(name = "user_password")
     private String password;
 
-    @OneToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.DETACH,
-            CascadeType.REFRESH,
-            CascadeType.MERGE},
+    @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "user")
     private List<Message> messages;
 
-    public User(String userName, String password, List<Message> messages) {
+    public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
-        this.messages = messages;
     }
 
     public User() {
@@ -67,11 +62,11 @@ public class User {
         this.password = pass;
     }
 
-    public List<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
-    }
+//    public List<Message> getMessages() {
+//        return messages;
+//    }
+//
+//    public void setMessages(List<Message> messages) {
+//        this.messages = messages;
+//    }
 }

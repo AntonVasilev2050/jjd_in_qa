@@ -8,17 +8,18 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
-    @Column(name = "message_text")
+    @Column(name = "message")
     private String messageText;
 
-    @ManyToOne(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.DETACH,
-            CascadeType.REFRESH,
-            CascadeType.MERGE})
-    @JoinColumn(name = "user_id")
+//    @ManyToOne(cascade = {
+//            CascadeType.PERSIST,
+//            CascadeType.DETACH,
+//            CascadeType.REFRESH,
+//            CascadeType.MERGE})
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "username_id")
     private User user;
 
     public Message(String messageText, User user) {
