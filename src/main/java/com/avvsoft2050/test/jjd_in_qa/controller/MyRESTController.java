@@ -28,17 +28,15 @@ public class MyRESTController {
 
     @GetMapping("users/{id}")
     public User getUser(@PathVariable int id) {
-        User user = mainService.getUserById(id);
-//        if(user==null){
+        //        if(user==null){
 //            throw new NoSuchUserException("There is no user with ID = " + id + " in database");
 //        }
-        return user;
+        return mainService.getUserById(id);
     }
 
     @GetMapping("/users")
     public List<User> showAllUsers() {
-        List<User> allUsers = mainService.getAllUsers();
-        return allUsers;
+        return mainService.getAllUsers();
     }
 
     @PostMapping("/users/get-token")

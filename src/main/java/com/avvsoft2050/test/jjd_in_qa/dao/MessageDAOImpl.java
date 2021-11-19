@@ -28,11 +28,6 @@ public class MessageDAOImpl implements MessageDAO {
         Query query = session.createQuery(
                 "from Message m where m.id between :maxId-9 and :maxId");
         query.setParameter("maxId", maxId);
-        System.out.println(maxId);
-
-
-        List<Message> messageList = query.getResultList();
-
-        return messageList;
+        return (List<Message>) query.getResultList();
     }
 }
