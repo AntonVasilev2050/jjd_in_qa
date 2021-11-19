@@ -35,7 +35,6 @@ public class UserDAOImpl implements UserDAO {
         Query query = session.createQuery("from User u where (u.userName = :username) and (u.password = :password)");
         query.setParameter("username", username);
         query.setParameter("password", password);
-
         return (User) query.getSingleResult();
     }
 

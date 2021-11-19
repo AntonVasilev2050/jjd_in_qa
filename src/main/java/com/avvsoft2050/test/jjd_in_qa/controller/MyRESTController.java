@@ -59,14 +59,14 @@ public class MyRESTController {
         String userName;
         Message message = null;
         if (messageFromUser.getMessage().equals("history 10")) {
-            if(tokenIsValid(messageFromUser, request)){
+            if(tokenIsValid(request)){
                 messageList = mainService.getLastMessages();
                 return messageList;
             }
         } else {
-            if (tokenIsValid(messageFromUser, request)) {
+            if (tokenIsValid(request)) {
                 String token = request.getHeader(AUTHORIZATION).substring(7);
-                userName = jwtProvider.getLoginFromToken(token);
+                userName = jwtProvider.getUserNameFromToken(token);
                 User user = mainService.getUserByName(userName);
                 message = new Message(messageFromUser.getMessage(), user);
                 mainService.saveMessage(message);
@@ -76,7 +76,7 @@ public class MyRESTController {
         return messageList;
     }
 
-    private boolean tokenIsValid(MessageFromUser messageFromUser, HttpServletRequest request) {
+    private boolean tokenIsValid(HttpServletRequest request) {
         String bearer = request.getHeader(AUTHORIZATION);
         String token = null;
         if (hasText(bearer) && bearer.startsWith("Bearer ")) {
