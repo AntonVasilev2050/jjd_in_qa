@@ -1,4 +1,4 @@
-package com.avvsoft2050.test.jjd_in_qa.entity;
+package com.avvsoft2050.test.jjd_in_qa.pojo;
 
 public class Token {
 

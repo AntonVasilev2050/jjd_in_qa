@@ -11,5 +11,7 @@ public interface UserDAO {
 
     User getUser(String username, String password);
 
+    User getUserByName(String username);
+
 
 }
