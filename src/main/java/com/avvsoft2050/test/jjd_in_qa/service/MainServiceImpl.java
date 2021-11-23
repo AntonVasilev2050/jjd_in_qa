@@ -5,14 +5,22 @@ import com.avvsoft2050.test.jjd_in_qa.dao.MessageDAO;
 import com.avvsoft2050.test.jjd_in_qa.dao.UserDAO;
 import com.avvsoft2050.test.jjd_in_qa.entity.Message;
 import com.avvsoft2050.test.jjd_in_qa.entity.User;
+import com.avvsoft2050.test.jjd_in_qa.jwt.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.List;
 
+import static org.springframework.util.StringUtils.hasText;
+
 @Service
 public class MainServiceImpl implements MainService {
+    public static final String AUTHORIZATION = "Authorization";
+
+    @Autowired
+    private JwtProvider jwtProvider;
 
     @Autowired
     private UserDAO userDAO;
@@ -54,5 +62,17 @@ public class MainServiceImpl implements MainService {
     @Transactional
     public List<Message> getLastMessages() {
         return messageDAO.getLastMessages();
+    }
+
+    @Override
+    public boolean tokenIsValid(HttpServletRequest request) {
+        String bearer = request.getHeader(AUTHORIZATION);
+        String token = null;
+        if (hasText(bearer) && bearer.startsWith("Bearer ")) {
+            token = bearer.substring(7);
+        } else {
+            System.out.println("token is missing");
+        }
+        return token != null && jwtProvider.validateToken(token);
     }
 }

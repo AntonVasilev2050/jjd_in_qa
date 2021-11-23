@@ -59,12 +59,12 @@ public class MyRESTController {
         String userName;
         Message message = null;
         if (messageFromUser.getMessage().equals("history 10")) {
-            if(tokenIsValid(request)){
+            if(mainService.tokenIsValid(request)){
                 messageList = mainService.getLastMessages();
                 return messageList;
             }
         } else {
-            if (tokenIsValid(request)) {
+            if (mainService.tokenIsValid(request)) {
                 String token = request.getHeader(AUTHORIZATION).substring(7);
                 userName = jwtProvider.getUserNameFromToken(token);
                 User user = mainService.getUserByName(userName);
@@ -76,15 +76,15 @@ public class MyRESTController {
         return messageList;
     }
 
-    private boolean tokenIsValid(HttpServletRequest request) {
-        String bearer = request.getHeader(AUTHORIZATION);
-        String token = null;
-        if (hasText(bearer) && bearer.startsWith("Bearer ")) {
-            token = bearer.substring(7);
-        } else {
-            System.out.println("token is missing");
-        }
-        return token != null && jwtProvider.validateToken(token);
-    }
+//    private boolean tokenIsValid(HttpServletRequest request) {
+//        String bearer = request.getHeader(AUTHORIZATION);
+//        String token = null;
+//        if (hasText(bearer) && bearer.startsWith("Bearer ")) {
+//            token = bearer.substring(7);
+//        } else {
+//            System.out.println("token is missing");
+//        }
+//        return token != null && jwtProvider.validateToken(token);
+//    }
 
 }

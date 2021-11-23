@@ -1,24 +1,30 @@
-CREATE TABLE my_db.users (
+create user 'testuser'@'localhost' identified by 'testuser';
+grant all privileges on * . * to testuser@testuser;
+
+create database test_db;
+use test_db;
+
+CREATE TABLE test_db.users (
   id int NOT NULL AUTO_INCREMENT,
   username varchar(25),
-  password varchar(25),
+  user_password varchar(25),
   primary key (id));
   
-  CREATE TABLE my_db.messages (
+  CREATE TABLE test_db.messages (
   id int NOT NULL AUTO_INCREMENT,
-  message_text varchar (300),
-  user_id int,
+  message varchar (300),
+  username_id int,
   primary key (id),
-  foreign key(user_id) references my_db.users(id) on delete cascade
+  foreign key(username_id) references test_db.users(id) on delete cascade
   );
-	INSERT INTO my_db.users (username, password)
+	INSERT INTO test_db.users (username, user_password)
 VALUES
 	('Sergey', 'Sergey'),
     ('Tania', 'Tania'),
     ('John', 'John'),
     ('Kate', 'Kate');
     
-	INSERT INTO my_db.messages (message_text, user_id)
+	INSERT INTO test_db.messages (message, username_id)
 VALUES
     ('This is the first test message', 2),
     ('This is the second test message', 1),

@@ -30,13 +30,13 @@ public class User {
     public User() {
     }
 
-    public void addMessageToUser(Message message) {
-        if (messages == null) {
-            messages = new ArrayList<>();
-        }
-        messages.add(message);
-        message.setUser(this);
-    }
+//    public void addMessageToUser(Message message) {
+//        if (messages == null) {
+//            messages = new ArrayList<>();
+//        }
+//        messages.add(message);
+//        message.setUser(this);
+//    }
 
     public int getId() {
         return id;
