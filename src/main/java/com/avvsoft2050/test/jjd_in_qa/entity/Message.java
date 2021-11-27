@@ -1,7 +1,10 @@
 package com.avvsoft2050.test.jjd_in_qa.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "messages")
 public class Message {
@@ -13,11 +16,6 @@ public class Message {
     @Column(name = "message")
     private String messageText;
 
-//    @ManyToOne(cascade = {
-//            CascadeType.PERSIST,
-//            CascadeType.DETACH,
-//            CascadeType.REFRESH,
-//            CascadeType.MERGE})
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username_id")
     private User user;
@@ -28,29 +26,5 @@ public class Message {
     }
 
     public Message() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getMessageText() {
-        return messageText;
-    }
-
-    public void setMessageText(String messageText) {
-        this.messageText = messageText;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
